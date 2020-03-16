@@ -12,17 +12,17 @@
     <title>DSM Utilities - Dashboard</title>
 
     <!-- Bootstrap core CSS-->
-    <link href="v3/css/bootstrap-table.min.css" rel="stylesheet">
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='v3/css/bootstrap-table.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Page level plugin CSS-->
-    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/sb-admin.css') }}" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
   </head>
 
@@ -30,7 +30,7 @@
 
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="index.html">Start Bootstrap</a>
+      <a class="navbar-brand mr-1" href="index.html">DSMUtils</a>
 
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -101,18 +101,17 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Logs</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <h6 class="dropdown-header">Login Screens:</h6>
-            <a class="dropdown-item" href="login.html">Login</a>
-            <a class="dropdown-item" href="register.html">Register</a>
-            <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-            <div class="dropdown-divider"></div>
-            <h6 class="dropdown-header">Other Pages:</h6>
-            <a class="dropdown-item" href="404.html">404 Page</a>
-            <a class="dropdown-item" href="blank.html">Blank Page</a>
+            <h6 class="dropdown-header">Sleeper Beauty:</h6>
+            {% block content %}
+            {% for row in table %}
+            <a class="dropdown-item" href="logs/{{row['Tables_in_dsmutils_csv'] }}">{{row['Tables_in_dsmutils_csv'] }}</a>
+            {% endfor %}
+            {% endblock %}
+
           </div>
         </li>
         <li class="nav-item">
@@ -123,7 +122,7 @@
         <li class="nav-item">
           <a class="nav-link" href="tables.html">
             <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
+            <span >Tables</span></a>
         </li>
       </ul>
 
@@ -198,23 +197,23 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
     <!-- Page level plugin JavaScript-->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4-1.min.js"></script>
+    <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/datatables/jquery.dataTables.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/datatables/dataTables.bootstrap4-1.min.js') }}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
+    <script src="{{ url_for('static', filename='js/sb-admin.min.js') }}"></script>
 
     <!-- Demo scripts for this page-->
-    <script src="js/datatables-brief.js"></script>
-    <script src="js/log_data.js"></script>
+    <script src="{{ url_for('static', filename='js/datatables-brief.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/log_data.js') }}"></script>
 <!--    <script src="js/demo/chart-pie-demo.js"></script> -->
 
   </body>

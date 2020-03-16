@@ -1,0 +1,12 @@
+{% extends "basic.html" %}
+
+{% block content %}
+<p>I eat PHP workloads for breakfast!</p>
+
+<ul class="w3-ul" style="width:20%">
+    <li><h1>Available Logs:</h1></li>
+    {% for row in table %}
+    <li><a href="logs/{{row['Tables_in_dsmutils_csv'] }}">{{row['Tables_in_dsmutils_csv'] }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
