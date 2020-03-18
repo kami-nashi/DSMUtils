@@ -33,7 +33,7 @@ var getJSON = function(url, callback) {
   xhr.send();
 };
 
-getJSON('http://journal.kami-nashi.com/dsmutil_test/index_json.php', function(err, data) {
+getJSON(api_url, function(err, data) {
   if (err !== null) {
     alert('Something went wrong: ' + err);
   } else {
@@ -217,7 +217,7 @@ getJSON('http://journal.kami-nashi.com/dsmutil_test/index_json.php', function(er
 //                stacked: true,
               ticks: {
               min: 0,
-              max: Math.max.apply(Math, rpm)+0.5,
+              //max: Math.max.apply(Math, rpm)+0.5,
               maxTicksLimit: 5,
               display: false
             },

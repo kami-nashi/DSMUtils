@@ -25,5 +25,5 @@ def log_api(log_table):
       log[db].append({'time': i['timestamp'], 'rpm': i['rpm'], 'airflow': float(i['airflow']), 'fronto2': float(i['fronto2']), 'timing': float(i['timing']), 'inttemp': float(i['inttemp']), 'cooltemp': float(i['cooltemp']), 'knockret': float(i['knockret']), 'speed': float(i['speed']), 'throtpos': float(i['throtpos'])})
 
    jlog = json.dumps(log, indent=4)
-
-   print(jlog)
+   return jlog
+#   print(jlog)
