@@ -33,7 +33,7 @@ def get_tasks(log_table):
     #log_table = 'dummy_data'
     log = json.loads(dump.log_api(log_table))
     jlog = json.dumps(log, indent=4)
-    print(jlog)
+    #print(jlog)
     resp = Response(jlog, status=200, mimetype='application/json')
     return resp
 
