@@ -1,14 +1,14 @@
 #! /usr/bin/env python3
 import math
 
-def CalcFuelMix():
+def CalcFuelMix(ExxBlendPCT,GasEthPCT,GasOct,GasGallons,ExxGallons):
 
      # Fuel Values - Calculated/Derived (User Values)
-    ExxBlendPCT = float(.85)                # Percent -> 0.NN
-    GasEthPCT = float(.10)                  # Percent ethanol -> 0.NN
-    GasOct = float(93)                      # Pump gas or non-e85 octane rating
-    GasGallons = float(5.00)                # Amount of gas in the tank or mix
-    ExxGallons = float(5.00)                # Amount of ethanol in the tank or mix
+    #ExxBlendPCT = #float(.85)                # Percent -> 0.NN
+    #GasEthPCT = #float(.10)                  # Percent ethanol -> 0.NN
+    #GasOct = #float(93)                      # Pump gas or non-e85 octane rating
+    #GasGallons = #float(5.00)                # Amount of gas in the tank or mix
+    #ExxGallons = #float(5.00)                # Amount of ethanol in the tank or mix
 
     # Fuel Constants
     cGasSG = float(0.720)                   # Pure Gas Specific Gravity, typically 0.739
