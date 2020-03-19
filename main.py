@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import jsonify
 from flask import Response
+from flask import request
 
 import calculators as calc
 import db_dump as dump
@@ -39,17 +40,25 @@ def get_tasks(log_table):
 
 
 @app.route('/calc')
-def calc():
-   return render_template('calc.html')
+def calcu():
+    jMath = 1
+    return render_template('calc.html', jMath=jMath)
 
 
 @app.route('/action', methods=['POST'])
-def update(ExxBlendPCT,GasEthPCT,GasOct,GasGallons,ExxGallons):
-
-    ExxBlendPCT = float(ExxBlendPCT*.10)
-    GasEthPCT = float(GasEthPCT*.10)
+def update():#ExxBlendPCT,GasEthPCT,GasOct,GasGallons,ExxGallons):
     #input = [ExxBlendPCT,GasEthPCT,float(GasOct),float(GasGallons),float(ExxGallons)]
-    results = calc.CalcFuelMix(ExxBlendPCT,GasEthPCT,float(GasOct),float(GasGallons),float(ExxGallons))
+    if request.method == 'POST':
+        ExxBlendPCT = request.form['ExxBlendPCT']
+        GasEthPCT = request.form['GasEthPCT']
+        GasOct = request.form['GasOct']
+        GasGallons = request.form['GasGallons']
+        ExxGallons = request.form['ExxGallons']
+        fExxBlendPCT = float(ExxBlendPCT)/100
+        fGasEthPCT = float(GasEthPCT)/100
+        calcu = calc.CalcFuelMix(fExxBlendPCT,fGasEthPCT,float(GasOct),float(GasGallons),float(ExxGallons))
+
+        results = calcu
     # results = CalcFuelMix()
     # print("Percentage Ethanol: \t\t", results[0], "%")
     # print("Octane Rating: \t\t\t", results[1])
@@ -59,7 +68,11 @@ def update(ExxBlendPCT,GasEthPCT,GasOct,GasGallons,ExxGallons):
     # print("Calculated Gas Specific Gravity:", results[5])
     # print("Estimated Stoich Ratio: \t", results[6])
     # print("Estimated Specific Gravity: \t", results[7])
-    return jsonify({'PCTeth':results[0],'OCTrating':results[1],'CalcEsg':results[2],'CalcEst':results[3],'CalcGsg':results[4],'CalcGst':results[5],'EstSTr':results[6],'EstSG':results[7]})
+        jMath = jsonify({'PCTeth':results[0],'OCTrating':results[1],'CalcEsg':results[2],'CalcEst':results[3],'CalcGsg':results[4],'CalcGst':results[5],'EstSTr':results[6],'EstSG':results[7]})
+        return render_template('calc.html', jMath=results)
+    else:
+        return render_template('calc.html')
+
 #   member = Member.query.filter_by(id=request.form['id']).first()
 #   member.name = request.form['name']
 #   member.email = request.form['email']
@@ -70,4 +83,4 @@ def update(ExxBlendPCT,GasEthPCT,GasOct,GasGallons,ExxGallons):
 
 
 if __name__ == "__main__":
-   app.run(host='0.0.0.0', port=4000, use_reloader=True)
+   app.run(host='0.0.0.0', port=4000, use_reloader=True,debug=True)

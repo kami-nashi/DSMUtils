@@ -15,51 +15,54 @@
         </div>
         <div class="panel-body">
           <div class="form-inline">
+
             <div class="form-group">
+            <form action="/action" method="POST" >
+
             <label for="{{ 'ExxBlendPCT' }}">Ethanol Blend (Percent Ethanol)</label>
-                <input type="text" class="form-control" id="{{ 'ExxBlendPCT' }}" value="{{ '85' }}"></div>
+            <input type="text" class="form-control" id="{{ 'ExxBlendPCT' }}" name="ExxBlendPCT" value="{{ '85' }}"></div>
             <br>
 
             <div class="form-group">
             <label for="{{ 'GasEthPCT' }}">Pump Gas (Percent Ethanol)</label>
-            <input type="email" class="form-control" id="{{ 'GasEthPCT' }}" value="{{ '10' }}">
+            <input type="text" class="form-control" id="{{ 'GasEthPCT' }}" name="GasEthPCT" value="{{ '10' }}">
             </div><br>
 
             <div class="form-group">
             <label for="{{ 'GasOct' }}">Pump Gas Octane Rating</label>
-            <input type="text" class="form-control" id="{{ 'GasOct' }}" value="{{ '93' }}">
+            <input type="text" class="form-control" id="{{ 'GasOct' }}"  name="GasOct" value="{{ '93' }}">
             </div><br>
 
             <div class="form-group">
             <label for="{{ 'GasGallons' }}">Gallons of Pump Gas</label>
-            <input type="text" class="form-control" id="{{ 'GasGallons' }}" value="{{ '5' }}">
+            <input type="text" class="form-control" id="{{ 'GasGallons' }}" name="GasGallons" value="{{ '5' }}">
             </div><br>
 
             <div class="form-group">
             <label for="{{ 'ExxGallons' }}">Gallons of Ethanol Blend</label>
-            <input type="text" class="form-control" id="{{ 'ExxGallons' }}" value="{{ '5' }}">
+            <input type="text" class="form-control" id="{{ 'ExxGallons' }}" name="ExxGallons" value="{{ '5' }}">
             </div><br>
 
-            <button class="btn btn-primary updateButton" member_id="{{ 'member.id' }}">Update</button>
+            <button class="btn btn-primary updateButton">Update</button>
+
+            </form>
 
               <div>
-                <p>Percentage of Ethanol: {{ 'PCTeth' }}</p>
-                <p>Octane Rating: {{ 'OCTrating' }}</p>
-                <p>Calculated E85 Stoich Ratio: {{ 'CalcEsg' }}</p>
-                <p>Calculated E85 Specific Gravity: {{ 'CalcEst' }}</p>
-                <p>Calculated Gas Stoich Ratio: {{ 'CalcGsg' }}</p>
-                <p>Calculated Gas Specific Gravity: {{ 'CalcGsg' }}</p>
-                <p>Estimated Blend Stoich Ratio: {{ 'EstSTr' }}</p>
-                <p>Estimated Blend Specific Gravity: {{ 'EstSG' }}</p>
+                <p>Percentage of Ethanol: {{ jMath[0] }}</p>
+                <p>Octane Rating: {{ jMath[1] }}</p>
+                <p>Calculated E85 Stoich Ratio: {{ jMath[2] }}</p>
+                <p>Calculated E85 Specific Gravity: {{ jMath[3] }}</p>
+                <p>Calculated Gas Stoich Ratio: {{ jMath[4] }}</p>
+                <p>Calculated Gas Specific Gravity: {{ jMath[5] }}</p>
+                <p>Estimated Blend Stoich Ratio: {{ jMath[6] }}</p>
+                <p>Estimated Blend Specific Gravity: {{ jMath[7] }}</p>
               </div>
           </div>
         </div>
       </div>
-
   </div>
 
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="{{ url_for('static', filename='js/calc.js') }}"></script>
-</body>
+    </body>
 </html>
