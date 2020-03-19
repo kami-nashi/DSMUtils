@@ -3,13 +3,6 @@ import math
 
 def CalcFuelMix(ExxBlendPCT,GasEthPCT,GasOct,GasGallons,ExxGallons):
 
-     # Fuel Values - Calculated/Derived (User Values)
-    #ExxBlendPCT = #float(.85)                # Percent -> 0.NN
-    #GasEthPCT = #float(.10)                  # Percent ethanol -> 0.NN
-    #GasOct = #float(93)                      # Pump gas or non-e85 octane rating
-    #GasGallons = #float(5.00)                # Amount of gas in the tank or mix
-    #ExxGallons = #float(5.00)                # Amount of ethanol in the tank or mix
-
     # Fuel Constants
     cGasSG = float(0.720)                   # Pure Gas Specific Gravity, typically 0.739
     cGasStoich = float(14.64)               # Pure Gas Stoich Ratio, typically 14.64
@@ -40,7 +33,7 @@ def CalcFuelMix(ExxBlendPCT,GasEthPCT,GasOct,GasGallons,ExxGallons):
     # Adjusted octane rating for the blend
     Octane = ((GasGallons*GasOct)+(ExxGallons*CalcEthOctane))/(GasGallons+ExxGallons)
 
-    # Corrected stoich ratio for the blend. Enter this into the "Global Fuel Calculator" for "Stoichiometric Ratio" (VIEW|ECU > Direct Accces > Fuel > Calculate ... > 3rd option)
+    # Corrected stoich ratio for the blend. Enter this into the "Global Fuel Calculator" for "Stoichiometric Ratio" (VIEW|ECU > Direct Acccess > Fuel > Calculate ... > 3rd option)
     EstBlendRatio = float(((GasGallons*CalcGasStoich)+(ExxGallons*CalcE85Stoich))/(GasGallons+ExxGallons))
 
     # Corrected specific gravity for the blend
@@ -118,21 +111,3 @@ def CalcESTFuelandAirflow():
 
     results = [estFuelHour, estFuelMin, estAirHour, estAirMin]
     return results
-
-# Diagnostic Prints, to be removed in the future.
-#results = CalcFuelMix()
-#print("Percentage Ethanol: \t\t", results[0], "%")
-#print("Octane Rating: \t\t\t", results[1])
-#print("Calculated E85 Stoich: \t\t", results[2])
-#print("Calculated E85 Specific Gravity:", results[3])
-#print("Calculated Gas Stoich: \t\t", results[4])
-#print("Calculated Gas Specific Gravity:", results[5])
-#print("Estimated Stoich Ratio: \t", results[6])
-#print("Estimated Specific Gravity: \t", results[7])
-#print(CalcFuelReq())
-#print(CalcRequiredInjectorSize())
-#print(CalcESTFuelandAirflow())
-#print(CalcFuelFlowRateMeasurement())
-#print(CalcFuelWeight())
-#print(CalcMAFCompAirflowCorrectionBoost())
-#print(CalcMAFCompAirflowCorrectionWB())
