@@ -20,6 +20,4 @@ ENV FLASK_APP main.py
 USER dsmtools
 
 EXPOSE 5000
-exec gunicorn -b :5000 --access-logfile - --error-logfile - main:app
-
-ENTRYPOINT ["./boot.sh"]
+CMD gunicorn -b :5000 --access-logfile - --error-logfile - main:app
