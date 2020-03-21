@@ -1,0 +1,24 @@
+{% extends "template.html" %}
+
+{% block much_content %}
+
+    <h1>Calculate ...</h1>
+          <h3 class="panel-title">Fuel Mix</h3>
+            <form action="/submit_CalcRequiredInjectorSize" method="POST" >
+           <p><label for="{{ 'BSFC' }}"><span>B.S.F.C.</span>
+                <input type="text" class="form-control" id="{{ 'BSFC' }}" name="BSFC" value="{{ '0.65' }}"></label></p>
+            <p><label for="{{ 'TgtCHP' }}"><span>Target HP</span>
+                <input type="text" class="form-control" id="{{ 'TgtCHP' }}" name="TgtCHP" value="{{ '400' }}"></label></p>
+            <p><label for="{{ 'InjDC' }}"><span>Injector Duty Cycle</span>
+                <input type="text" class="form-control" id="{{ 'InjDC' }}"  name="InjDC" value="{{ '80' }}"></label></p>
+            <p><label for="{{ 'FuelPressure' }}"><span>Base Fuel Pressure</span>
+                <input type="text" class="form-control" id="{{ 'FuelPressure' }}" name="FuelPressure" value="{{ '43.5' }}"></label></p>
+            <p><label for="{{ 'InjCount' }}"><span>Number of Injectors</span>
+                <input type="text" class="form-control" id="{{ 'InjCount' }}" name="InjCount" value="{{ '4' }}"></label></p>
+            <button class="btn btn-primary updateButton">Update</button>
+            </form>
+                <h3>Required Injector CC/Minute</h3>
+                <p>Pump Gas: {{ jMath[0] }}</p>
+                <p>E85: {{ jMath[1] }}</p>
+                <p class="alert alert-info ">For More Information On B.S.F.C., visit this page at <a href="https://help.summitracing.com/app/answers/detail/a_id/5134/~/what-is-bsfc%3F">Summit Racing</a></p>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "template.html" %}
+
+{% block much_content %}
+    <h1>Calculate ...</h1>
+          <h3 class="panel-title">Fuel Mix</h3>
+            <form action="/submit_CalcMAFCompAirflowCorrectionBoost" method="POST" >
+           <p><label for="{{ 'logMAP' }}"><span>Measured AFR from Wideband</span>
+                <input type="text" class="form-control" id="{{ 'logMAP' }}" name="logMAP" value="{{ '26.7' }}"></label></p>
+            <p><label for="{{ 'logBoostEst' }}"><span>Estimated AFR</span>
+                <input type="text" class="form-control" id="{{ 'logBoostEst' }}" name="logBoostEst" value="{{ '29.2' }}"></label></p>
+            <p><label for="{{ 'currentVE' }}"><span>Current VE Value</span>
+                <input type="text" class="form-control" id="{{ 'currentVE' }}"  name="currentVE" value="{{ '99' }}"></label></p>
+            <button class="btn btn-primary updateButton">Update</button>
+            </form>
+                <h3>Results</h3>
+                <p>Airflow Adjustment (In Percent): {{ jMath[0]*100 }}</p>
+                <p>New VE Based On Boost Value: {{ jMath[1] }}</p>
+
+{% endblock %}

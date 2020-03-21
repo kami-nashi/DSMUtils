@@ -43,71 +43,48 @@ def CalcFuelMix(ExxBlendPCT,GasEthPCT,GasOct,GasGallons,ExxGallons):
 
     return results
 
-def CalcFuelReq():
-    TgtAirflow = 55                                 # Target airflow, in lbs/min
-    TgtAFR = 8.0                                    # Target AFR
+def CalcFuelReq(TgtAirflow,TgtAFR):
     ReqFuelPounds = float(TgtAirflow/TgtAFR)        # Pounds/Minute
     ReqFuelGallon = float(ReqFuelPounds * 60 / 6.2) # Gallons/Hour
     ReqFuelLiter = float(ReqFuelGallon*3.785)       # Liters/Hour
     results = [ReqFuelPounds,ReqFuelGallon,ReqFuelLiter]
     return results
 
-def CalcFuelFlowRateMeasurement():
-    PumpedGallons = 44.4
-    PumpedTime = 3600                               # In Seconds
+def CalcFuelFlowRateMeasurement(PumpedGallons,PumpedTime):
     frGallon = ((PumpedGallons/PumpedTime)*3600)    # Gallons/Hour
     frLiter = frGallon*3.785                        # Liters/Hour
-    frPound = (frLiter/60)*6.2                      # Pounds/Minute
+    frPound = (frGallon/60)*6.2                      # Pounds/Minute
     results = [frPound,frGallon,frLiter]
     return results
 
-def CalcFuelWeight():
+def CalcFuelWeight(FuelGallons):
     FuelWeight = 6.5                                # Pounds per gallon
-    FuelGallons = 5                                 # Amount of fuel, in gallons, user input
     TotalWeight = FuelGallons*FuelWeight
     return TotalWeight
 
-def CalcRequiredInjectorSize():
-    BSFC = 0.65                                     # Not clear what this does, but its a constant
-    TgtCHP = 400                                    # Target Crank HP, user input
-    InjDC = .80                                     # Injector Duty Cycle, in percent. 80% = .80, user input
-    FuelPressure = 43.5                             # Base Fuel Pressure, lb's, user input
-    InjCount = 4                                    # Number of injectors, user input
+def CalcRequiredInjectorSize(BSFC,TgtCHP,InjDC,FuelPressure,InjCount):
     ReqInjGas = (((TgtCHP/InjCount)*(BSFC/InjDC))/math.sqrt(FuelPressure/43.5))* 10.5
     ReqInjE85 = ReqInjGas*(1/0.67)
     results = [ReqInjGas,ReqInjE85]
     return results
 
-
-def CalcMAFCompAirflowCorrectionBoost():
-    logMAP = 26.7                                   # User Input
-    logBoostEst = 29.2                              # User Input
-    currentVE = 99                                  # Currently configured VE, user input
+def CalcMAFCompAirflowCorrectionBoost(logMAP,logBoostEst,currentVE):
     revisedBoost = currentVE*((logMAP+14.7)/(logBoostEst+14.7))
     AdjAirflow = ((logMAP+14.7)/(logBoostEst+14.7))-1
     results = [AdjAirflow,revisedBoost]
     return results
 
-def CalcMAFCompAirflowCorrectionWB():
-    logAFREst = 10.8                                # User Input
-    logWBO2 = 10.5                                  # Measured AFR via Wideband, user input
+def CalcMAFCompAirflowCorrectionWB(logAFREst,logWBO2,currentVE):
     AdjAirflow = (logWBO2/logAFREst)-1
-    currentVE = 99                                  # Currently configured VE, user input
     revisedWB = currentVE*(logWBO2/logAFREst)
     results = [AdjAirflow,revisedWB]
     return results
 
-def CalcESTFuelandAirflow():
-    InjRate = 1100                                  # Injector rate, in CC, user input
-    InjCount = 4                                    # Injector count, user input
-    InjDC = .397                                    # Injector duty cycle, percent. 39.7 = .397, user input
-    FuelPressure = 43.0                             # Base fuel pressure, user input
-    AFR = 10.7                                      # Air/Fuel Ratio, not clear why this is different from other entries, user input
-
+def CalcESTFuelandAirflow(InjRate,InjCount,InjDC,FuelPressure,AFR):
+    #AFR = 10.7                                      # Air/Fuel Ratio, not clear why this is different from other entries, user input
     estFuelHour = InjCount*InjDC*(InjRate/10.5)*math.sqrt(FuelPressure/43.5)
     estFuelMin = estFuelHour*10.5
     estAirHour = estFuelHour*AFR
     estAirMin = estAirHour/60
-
     results = [estFuelHour, estFuelMin, estAirHour, estAirMin]
     return results

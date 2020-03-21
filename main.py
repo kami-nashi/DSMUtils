@@ -12,8 +12,6 @@ import pymysql
 
 app = Flask(__name__)
 
-some_name = 'Ashley'
-
 @app.route("/")
 def index():
    sql= "SHOW TABLES FROM dsmutils_csv;"
@@ -34,6 +32,78 @@ def get_tasks(log_table):
     resp = Response(jlog, status=200, mimetype='application/json')
     return resp
 
+@app.route('/CalcMAFCompAirflowCorrectionWB')
+def CalcMAFCompAirflowCorrectionWB():
+    jMath = 1
+    return render_template('CalcMAFCompAirflowCorrectionWB.html', jMath=jMath)
+
+@app.route('/submit_CalcMAFCompAirflowCorrectionWB', methods=['POST'])
+def submit_CalcMAFCompAirflowCorrectionWB():
+    if request.method == 'POST':
+        logAFREst = request.form['logAFREst']
+        logWBO2 = request.form['logWBO2']
+        currentVE = request.form['currentVE']
+        calcu = calc.CalcMAFCompAirflowCorrectionWB(float(logAFREst), float(logWBO2), float(currentVE))
+        results = calcu
+        return render_template('CalcMAFCompAirflowCorrectionWB.html', jMath=results)
+    else:
+        return render_template('CalcMAFCompAirflowCorrectionWB.html')
+
+@app.route('/CalcMAFCompAirflowCorrectionBoost')
+def CalcMAFCompAirflowCorrectionBoost():
+    jMath = 1
+    return render_template('CalcMAFCompAirflowCorrectionBoost.html', jMath=jMath)
+
+@app.route('/submit_CalcMAFCompAirflowCorrectionBoost', methods=['POST'])
+def submit_CalcMAFCompAirflowCorrectionBoost():
+    if request.method == 'POST':
+        logMAP = request.form['logMAP']
+        logBoostEst = request.form['logBoostEst']
+        currentVE = request.form['currentVE']
+        calcu = calc.CalcMAFCompAirflowCorrectionBoost(float(logMAP), float(logBoostEst), float(currentVE))
+        results = calcu
+        return render_template('CalcMAFCompAirflowCorrectionBoost.html', jMath=results)
+    else:
+        return render_template('CalcMAFCompAirflowCorrectionBoost.html')
+
+@app.route('/CalcESTFuelandAirflow')
+def CalcESTFuelandAirflow():
+    jMath = 1
+    return render_template('calcESTFuelandAirflow.html', jMath=jMath)
+
+@app.route('/submit_CalcESTFuelandAirflow', methods=['POST'])
+def submit_CalcESTFuelandAirflow():
+    if request.method == 'POST':
+        InjRate = request.form['InjRate']
+        InjCount = request.form['InjCount']
+        InjDC = request.form['InjDC']
+        FuelPressure = request.form['FuelPressure']
+        AFR = request.form['AFR']
+        calcu = calc.CalcESTFuelandAirflow(float(InjRate), float(InjCount), float(InjDC)/100, float(FuelPressure), float(AFR))
+        results = calcu
+        return render_template('calcESTFuelandAirflow.html', jMath=results)
+    else:
+        return render_template('calcESTFuelandAirflow.html')
+
+@app.route('/CalcRequiredInjectorSize')
+def CalcRequiredInjectorSize():
+    jMath = 1
+    return render_template('CalcRequiredInjectorSize.html', jMath=jMath)
+
+@app.route('/submit_CalcRequiredInjectorSize', methods=['POST'])
+def submit_CalcRequiredInjectorSize():
+    if request.method == 'POST':
+        BSFC = request.form['BSFC']
+        InjDC = request.form['InjDC']
+        TgtCHP = request.form['TgtCHP']
+        FuelPressure = request.form['FuelPressure']
+        InjCount = request.form['InjCount']
+        calcu = calc.CalcRequiredInjectorSize(float(BSFC), float(TgtCHP), float(InjDC)/100, float(FuelPressure), int(InjCount))
+        results = calcu
+        return render_template('CalcRequiredInjectorSize.html', jMath=results)
+    else:
+        return render_template('CalcRequiredInjectorSize.html')
+
 @app.route('/CalcFuelWeight')
 def CalcFuelFlowWeight():
     jMath = 1
@@ -45,7 +115,6 @@ def submit_CalcFuelWeight():
         FuelGallons = request.form['FuelGallons']
         calcu = calc.CalcFuelWeight(float(FuelGallons))
         results = calcu
-        jMath = jsonify({'FuelWeight':results})
         return render_template('calcFuelWeight.html', jMath=results)
     else:
         return render_template('calcFuelWeight.html')
@@ -62,7 +131,6 @@ def submit_CalcFuelFlowRateMeasurement():
         PumpedTime = request.form['PumpedTime']
         calcu = calc.CalcFuelFlowRateMeasurement(float(PumpedGallons),float(PumpedTime))
         results = calcu
-        jMath = jsonify({'frPound':results[0],'frGallon':results[1],'frLiter':results[2]})
         return render_template('CalcFuelFlowRateMeasurement.html', jMath=results)
     else:
         return render_template('CalcFuelFlowRateMeasurement.html')
@@ -79,7 +147,6 @@ def submit_calcFuelReq():
         TgtAFR = request.form['TgtAFR']
         calcu = calc.CalcFuelReq(float(TgtAirflow),float(TgtAFR))
         results = calcu
-        jMath = jsonify({'ReqFuelPounds':results[0],'ReqFuelGallon':results[1],'ReqFuelLiter':results[2]})
         return render_template('calcFuelReq.html', jMath=results)
     else:
         return render_template('calcFuelReq.html')
@@ -101,7 +168,6 @@ def submit_calcFuelMix():
         fGasEthPCT = float(GasEthPCT)/100
         calcu = calc.CalcFuelMix(fExxBlendPCT,fGasEthPCT,float(GasOct),float(GasGallons),float(ExxGallons))
         results = calcu
-        jMath = jsonify({'PCTeth':results[0],'OCTrating':results[1],'CalcEsg':results[2],'CalcEst':results[3],'CalcGsg':results[4],'CalcGst':results[5],'EstSTr':results[6],'EstSG':results[7]})
         return render_template('calcFuelMix.html', jMath=results)
     else:
         return render_template('calcFuelMix.html')
