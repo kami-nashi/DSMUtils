@@ -373,3 +373,15 @@ body.sidebar-toggled footer.sticky-footer {
     width: calc(100% - 90px);
   }
 }
+
+label
+{
+    display: block;
+    margin: 10px 0;
+}
+
+label span
+{
+    text-align: right;
+    width: 100px;
+}

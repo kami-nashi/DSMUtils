@@ -1,0 +1,15 @@
+{% extends "template.html" %}
+
+{% block much_content %}
+
+    <h1>Calculate ...</h1>
+          <h3 class="panel-title">Fuel Weight</h3>
+            <form action="/submit_calcFuelWeight" method="POST" >
+           <p><label for="{{ 'FuelGallons' }}"><span>Gallons of Fuel:</span>
+                <input type="text" class="form-control" id="{{ 'FuelGallons' }}" name="FuelGallons" value="{{ '5' }}"></label></p>
+           <button class="btn btn-primary updateButton">Update</button>
+            </form>
+                <h3>Results:</h3>
+                <p>Amount of pounds added by fuel: {{ jMath }}</p>
+
+{% endblock %}

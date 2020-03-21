@@ -1,0 +1,19 @@
+{% extends "template.html" %}
+
+{% block much_content %}
+
+    <h1>Calculate ...</h1>
+          <h3 class="panel-title">Fuel Mix</h3>
+            <form action="/submit_CalcFuelFlowRateMeasurement" method="POST" >
+           <p><label for="{{ 'PumpedGallons' }}"><span>Gallons Pumped</span>
+                <input type="text" class="form-control" id="{{ 'PumpedGallons' }}" name="PumpedGallons" value="{{ '44.4' }}"></label></p>
+           <p><label for="{{ 'PumpedTime' }}"><span>Time Elapsed (In Seconds)</span>
+                <input type="text" class="form-control" id="{{ 'PumpedTime' }}" name="PumpedTime" value="{{ '3600' }}"></label></p>
+           <button class="btn btn-primary updateButton">Update</button>
+            </form>
+                <h3>FLow Rate:</h3>
+                <p>pounds/minute: {{ jMath[0] }}</p>
+                <p>gallons/hour: {{ jMath[1] }}</p>
+                <p>liter/hour: {{ jMath[2] }}</p>
+
+{% endblock %}

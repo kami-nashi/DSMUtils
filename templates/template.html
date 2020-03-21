@@ -103,23 +103,22 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <h6 class="dropdown-header">Sleeper Beauty:</h6>
-            {% block content %}
             {% for row in table %}
             <a class="dropdown-item" href="/logs/{{row['Tables_in_dsmutils_csv'] }}">{{row['Tables_in_dsmutils_csv'] }}</a>
             {% endfor %}
-            {% endblock %}
-
           </div>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="calculator.html">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-table"></i>
-            <span>Calculators ...</span></a>
+            <span>Calculators ...</span>
+          </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="/calcFuelMix">Fuel Mix</a>
+            <a class="dropdown-item" href="/calcFuelReq">Fuel Requirements</a>
+            <a class="dropdown-item" href="/CalcFuelFlowRateMeasurement">Pump Flow Rate</a>
+            <a class="dropdown-item" href="/CalcFuelWeight">Fuel Weight</a>
+        </div>
         </li>
       </ul>
 
@@ -140,8 +139,9 @@
               <i class="fas fa-chart-area"></i>
               Imported Log</div>
             <div class="card-body">
- <!-- DataTables Example -->
-            <canvas id="myAreaChart" width="100%" height="30"></canvas>
+
+           {% block much_content %}{% endblock %}
+
             </div>
             <div class="card-footer small text-muted">DSM Util Demo Only</div>
           </div>
@@ -209,9 +209,7 @@
 
     <!-- Demo scripts for this page-->
     <script src="{{ url_for('static', filename='js/datatables-brief.js') }}"></script>
-    <script> var api_url="/logs/json/{{ lpath }}";</script>
-    <script src="{{ url_for('static', filename='js/log_data.js') }}"></script>
-<!--    <script src="js/demo/chart-pie-demo.js"></script> -->
+   {% block chart_log %}{% endblock %}
 
   </body>
 

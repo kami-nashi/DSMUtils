@@ -34,13 +34,63 @@ def get_tasks(log_table):
     resp = Response(jlog, status=200, mimetype='application/json')
     return resp
 
-@app.route('/calc')
-def calcu():
+@app.route('/CalcFuelWeight')
+def CalcFuelFlowWeight():
     jMath = 1
-    return render_template('calc.html', jMath=jMath)
+    return render_template('calcFuelWeight.html', jMath=jMath)
 
-@app.route('/action', methods=['POST'])
-def update():
+@app.route('/submit_calcFuelWeight', methods=['POST'])
+def submit_CalcFuelWeight():
+    if request.method == 'POST':
+        FuelGallons = request.form['FuelGallons']
+        calcu = calc.CalcFuelWeight(float(FuelGallons))
+        results = calcu
+        jMath = jsonify({'FuelWeight':results})
+        return render_template('calcFuelWeight.html', jMath=results)
+    else:
+        return render_template('calcFuelWeight.html')
+
+@app.route('/CalcFuelFlowRateMeasurement')
+def CalcFuelFlowRateMeasurement():
+    jMath = 1
+    return render_template('CalcFuelFlowRateMeasurement.html', jMath=jMath)
+
+@app.route('/submit_CalcFuelFlowRateMeasurement', methods=['POST'])
+def submit_CalcFuelFlowRateMeasurement():
+    if request.method == 'POST':
+        PumpedGallons = request.form['PumpedGallons']
+        PumpedTime = request.form['PumpedTime']
+        calcu = calc.CalcFuelFlowRateMeasurement(float(PumpedGallons),float(PumpedTime))
+        results = calcu
+        jMath = jsonify({'frPound':results[0],'frGallon':results[1],'frLiter':results[2]})
+        return render_template('CalcFuelFlowRateMeasurement.html', jMath=results)
+    else:
+        return render_template('CalcFuelFlowRateMeasurement.html')
+
+@app.route('/calcFuelReq')
+def calcFuelReq():
+    jMath = 1
+    return render_template('calcFuelReq.html', jMath=jMath)
+
+@app.route('/submit_calcFuelReq', methods=['POST'])
+def submit_calcFuelReq():
+    if request.method == 'POST':
+        TgtAirflow = request.form['TgtAirflow']
+        TgtAFR = request.form['TgtAFR']
+        calcu = calc.CalcFuelReq(float(TgtAirflow),float(TgtAFR))
+        results = calcu
+        jMath = jsonify({'ReqFuelPounds':results[0],'ReqFuelGallon':results[1],'ReqFuelLiter':results[2]})
+        return render_template('calcFuelReq.html', jMath=results)
+    else:
+        return render_template('calcFuelReq.html')
+
+@app.route('/calcFuelMix')
+def calcFuelMix():
+    jMath = 1
+    return render_template('calcFuelMix.html', jMath=jMath)
+
+@app.route('/submit_calcFuelMix', methods=['POST'])
+def submit_calcFuelMix():
     if request.method == 'POST':
         ExxBlendPCT = request.form['ExxBlendPCT']
         GasEthPCT = request.form['GasEthPCT']
@@ -52,9 +102,9 @@ def update():
         calcu = calc.CalcFuelMix(fExxBlendPCT,fGasEthPCT,float(GasOct),float(GasGallons),float(ExxGallons))
         results = calcu
         jMath = jsonify({'PCTeth':results[0],'OCTrating':results[1],'CalcEsg':results[2],'CalcEst':results[3],'CalcGsg':results[4],'CalcGst':results[5],'EstSTr':results[6],'EstSG':results[7]})
-        return render_template('calc.html', jMath=results)
+        return render_template('calcFuelMix.html', jMath=results)
     else:
-        return render_template('calc.html')
+        return render_template('calcFuelMix.html')
 
 if __name__ == "__main__":
    app.run(host='0.0.0.0', port=5000, use_reloader=True,debug=True)

@@ -1,0 +1,19 @@
+{% extends "template.html" %}
+
+{% block much_content %}
+
+    <h1>Calculate ...</h1>
+          <h3 class="panel-title">Fuel Mix</h3>
+            <form action="/submit_calcFuelReq" method="POST" >
+           <p><label for="{{ 'TgtAirflow' }}"><span>Target Airflow in lbs/min</span>
+                <input type="text" class="form-control" id="{{ 'TgtAirflow' }}" name="TgtAirflow" value="{{ '55' }}"></label></p>
+           <p><label for="{{ 'TgtAFR' }}"><span>Target AFR</span>
+                <input type="text" class="form-control" id="{{ 'TgtAFR' }}" name="TgtAFR" value="{{ '8.0' }}"></label></p>
+           <button class="btn btn-primary updateButton">Update</button>
+            </form>
+                <h3>Required Fuel:</h3>
+                <p>In pounds/minute: {{ jMath[0] }}</p>
+                <p>In gallons/hour: {{ jMath[1] }}</p>
+                <p>In liter/hour: {{ jMath[2] }}</p>
+
+{% endblock %}
