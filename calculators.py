@@ -71,13 +71,13 @@ def CalcRequiredInjectorSize(BSFC,TgtCHP,InjDC,FuelPressure,InjCount):
 def CalcMAFCompAirflowCorrectionBoost(logMAP,logBoostEst,currentVE):
     revisedBoost = currentVE*((logMAP+14.7)/(logBoostEst+14.7))
     AdjAirflow = ((logMAP+14.7)/(logBoostEst+14.7))-1
-    results = [AdjAirflow,revisedBoost]
+    results = [AdjAirflow*100,revisedBoost]
     return results
 
 def CalcMAFCompAirflowCorrectionWB(logAFREst,logWBO2,currentVE):
     AdjAirflow = (logWBO2/logAFREst)-1
     revisedWB = currentVE*(logWBO2/logAFREst)
-    results = [AdjAirflow,revisedWB]
+    results = [AdjAirflow*100,revisedWB]
     return results
 
 def CalcESTFuelandAirflow(InjRate,InjCount,InjDC,FuelPressure,AFR):

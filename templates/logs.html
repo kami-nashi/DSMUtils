@@ -1,0 +1,10 @@
+{% extends "template.html" %}
+
+{% block much_content %}
+<canvas id="myAreaChart" width="100%" height="30"></canvas>
+{% endblock %}
+
+{% block chart_log %}
+<script> var api_url="/logs/json/{{ lpath }}";</script>
+<script src="{{ url_for('static', filename='js/log_data.js') }}"></script>>
+{% endblock %}

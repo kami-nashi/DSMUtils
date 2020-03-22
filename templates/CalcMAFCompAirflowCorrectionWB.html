@@ -2,7 +2,7 @@
 
 {% block much_content %}
     <h1>Calculate ...</h1>
-          <h3 class="panel-title">Fuel Mix</h3>
+          <h3 class="panel-title">MAF Compenstation Airflow Correction: Wideband</h3>
             <form action="/submit_CalcMAFCompAirflowCorrectionWB" method="POST" >
            <p><label for="{{ 'logWBO2' }}"><span>Measured AFR from Wideband</span>
                 <input type="text" class="form-control" id="{{ 'logWBO2' }}" name="logWBO2" value="{{ '10.5' }}"></label></p>
@@ -13,7 +13,7 @@
             <button class="btn btn-primary updateButton">Update</button>
             </form>
                 <h3>Results</h3>
-                <p>Airflow Adjustment (In Percent): {{ jMath[0]*100 }}</p>
+                <p>Airflow Adjustment (In Percent): {{ jMath[0] }}</p>
                 <p>New VE Based On WB Error: {{ jMath[1] }}</p>
 
 {% endblock %}

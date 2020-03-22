@@ -28,7 +28,7 @@
 
   <body id="page-top">
     <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-      <a class="navbar-brand mr-1" href="index.html">DSMUtils</a>
+      <a class="navbar-brand mr-1" href="/">DSMUtils</a>
       <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
       </button>
@@ -91,7 +91,7 @@
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="/">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
           </a>
@@ -103,9 +103,11 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <h6 class="dropdown-header">Sleeper Beauty:</h6>
+            {% block table %}
             {% for row in table %}
             <a class="dropdown-item" href="/logs/{{row['Tables_in_dsmutils_csv'] }}">{{row['Tables_in_dsmutils_csv'] }}</a>
             {% endfor %}
+            {% endblock %}
           </div>
         </li>
         <li class="nav-item dropdown">
@@ -163,7 +165,7 @@
         <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>..........</span>
+              <span>Want to contribute? Check out our repo! <a href="https://github.com/kami-nashi/DSMUtils">https://github.com/kami-nashi/DSMUtils</a></span>
             </div>
           </div>
         </footer>
